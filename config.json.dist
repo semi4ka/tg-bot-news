@@ -1,0 +1,8 @@
+{
+    "TOKEN":"telegramTOKEN",
+    "IDS": [
+        "chatID"
+    ],
+    "sourceUrl1":"https://link1",
+    "sourceUrl2":"https://link2"
+}
