@@ -9,8 +9,8 @@ const bot = new TelegramBot(TOKEN, { polling: true });
 
 bot.on("message", (msg) => {
   const chatId = msg.chat.id;
-  console.log("chatId:", msg.chat);
-  console.log("msg:", msg);
+  // console.log("chatId:", msg.chat);
+  // console.log("msg:", msg);
   switch (msg.text) {
     case ".logs":
     bot.sendMessage(chatId, "test logs");
