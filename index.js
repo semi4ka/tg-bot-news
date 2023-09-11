@@ -21,15 +21,20 @@ bot.on("message", (msg) => {
   }
 });
 
+bot.on("polling_error", console.log);
+
 const cronJob = new cron.CronJob("0 * * * *", async () => {
   await start();
 });
 
 const start = async () => {
+  console.log("start");
   const art1 = await articleService.getSource1();
-  sendPosts(art1);
+  console.log("1: ", art1.length);
+  await sendPosts(art1);
   const art2 = await articleService.getSource2();
-  sendPosts(art2, "source2");
+  console.log("2: ", art2.length);
+  await sendPosts(art2, "source2");
 };
 cronJob.start();
 start();
@@ -43,9 +48,9 @@ async function sendPosts(data, fileName = "source1") {
     data.map(async (post) => {
       if (!isFileExist || Date.parse(post.date) > Date.parse(lastPost.date)) {
         const text = `[${post.title.rendered}](${post.link})`;
-        IDS.forEach((id) => {
-          bot.sendMessage(id, text, { parse_mode: "Markdown" });
-        });
+        for (const id of IDS) {
+          await bot.sendMessage(id, text, { parse_mode: "Markdown" });
+        }
       }
     });
   
